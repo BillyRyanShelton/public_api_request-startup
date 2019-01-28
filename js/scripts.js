@@ -2,7 +2,7 @@ var galleryXHR = new XMLHttpRequest();
 
 galleryXHR.onreadystatechange = function() {
 	if(galleryXHR === 4) {
-		console.log(galleryXHR);
+		console.log(JSON.parse(galleryXHR));
 	} 
 };
 
