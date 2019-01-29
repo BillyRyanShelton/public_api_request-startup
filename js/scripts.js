@@ -40,21 +40,19 @@ for(let i = 0; i < 12; i++) {
 			modalHTML += '</div>';
 			//console.log(employee.results[0]);
 			let userModalHTML = document.createElement('div');
-			userModalHTML.class = 'modal-container';
-			userModalHTML.id = employee.results[0].name.first;
 			document.getElementsByTagName('BODY')[0].appendChild(userModalHTML);
 
-			//NEEDS FIXING
+			//FIXXXXXXXXX
 			//the user card is opened when it is clicked
 			userHTML.addEventListener('click',()=>{
-				document.getElementById(employee.results[0].name.first).style.display = 'inline-block';
+				userModalHTML.style.display = 'inline-block';
 				userModalHTML.className = 'modal-container';
 				userModalHTML.innerHTML = modalHTML;
 
-				//DOES NOT WORK
+				//FIXXXXXXXXXXX
 				//when the modal x button is clicked the modal is hidden from display
 				document.getElementById('modal-close-btn').addEventListener('click', ()=>{
-					document.getElementById(employee.results[0].name.first).style.display = 'none';
+					userModalHTML.style.display = 'none';
 					//userModalHTML.parentNode.removeChild(userModalHTML);
 				});
 			});
