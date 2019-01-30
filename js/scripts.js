@@ -46,8 +46,8 @@ function createEmployeeModalCard(employee, employeeModalCards, i){
 	employeeModalCards[i] = userModalHTML;
 }
 
-//The following for loop determines how many employees to display on the page 
-for(let i = 0; i < 12; i++) {	
+//This function exectues all 4 stages of each XMLHTTP employee data request
+function makeXMLHTTPUserRequest(i){
 	//An XMLHttpRequest object is created to retrieve an employee's info
 	var galleryXHR = new XMLHttpRequest();
 
@@ -78,8 +78,19 @@ for(let i = 0; i < 12; i++) {
 	};
 
 	//A request is opened for the current employee info
-	galleryXHR.open('GET', 'https://randomuser.me/api/?format=json', false);
+	galleryXHR.open('GET', 'https://randomuser.me/api/?format=json', true);
 
 	//The request is sent to the server
 	galleryXHR.send();
 }
+
+//The number of employee data is set
+let numEmployees = 12;
+
+//The following for loop determines how many employees to display on the page 
+//Note:  The reason there is an makeXMLHPUserRequest function is
+//so the employee data can be retrieved asyncronously from the API
+for(let i = 0; i < numEmployees; i++) {	
+	makeXMLHTTPUserRequest(i);
+}
+
