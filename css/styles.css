@@ -3,7 +3,7 @@
 ======================================== */
 
 /*@import url('https://fonts.googleapis.com/css?family=Nunito');*/
-@import url('https://fonts.googleapis.com/css?family=Cormorant');
+@import url('https://fonts.googleapis.com/css?family=Cantarell');
 
 * {
 	box-sizing: border-box;
@@ -16,13 +16,13 @@ html, body {
 
 body {
     /*font-family: "Nunito", sans-serif;*/
-    font-family: 'Cormorant', serif;
+    font-family: 'Cantarell', sans-serif;
     text-align: center;
     /*background: rgba(235, 235, 235, 0.9);*/
     background:
     linear-gradient(
       to right, 
-      #B1EAFF , #fff 120%
+      #CDFFFE , #fff 120%
     );
     border-style:none;
 }
@@ -38,8 +38,8 @@ header {
 }
 
 header h1 {
-    font-size: 1.25em;
-    color: rgba(50, 50, 50, 0.9);
+    font-size: 1.75em;
+    color: #333366;/*rgba(50, 50, 50, 0.9);*/
     margin-top: 35px;
 }
 

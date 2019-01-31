@@ -37,13 +37,15 @@ function createEmployeeModalCard(employee, employeeModalCards, i){
 	modalHTML += '<p class="modal-text cap">' + employee.results[0].location.city + '</p>';
 	modalHTML += '<hr>';
 	modalHTML += '<p class="modal-text">' + employee.results[0].phone + '</p>';
-	modalHTML += '<p class="modal-text">' + employee.results[0].location.street + ', ' + employee.results[0].location.city + ', ' + employee.results[0].location.state + ', ' + employee.results[0].location.postcode + '</p>'; 
-	modalHTML += '<p class="modal-text">Birthday: '; + employee.results[0].dob.date.slice(5,7) + '/' + employee.results[0].dob.date.slice(8,10) + '/' + employee.results[0].dob.date.slice(2,4) + '</p>';
+	modalHTML += '<p class="modal-text cap">' + employee.results[0].location.street + ', ' + employee.results[0].location.city + ', ' + employee.results[0].location.state + ', ' + employee.results[0].location.postcode + '</p>'; 
+	modalHTML += '<p class="modal-text">Birthday: ' + employee.results[0].dob.date.slice(5,7).toString() + '/' + employee.results[0].dob.date.slice(8,10).toString() + '/' + employee.results[0].dob.date.slice(2,4).toString() + '</p>';
 	modalHTML += '</div>';
 	modalHTML += '</div>';
 	userModalHTML.innerHTML = modalHTML;
 	//The employee modal card is added to the employee modal array
 	employeeModalCards[i] = userModalHTML;
+
+	console.log(employee.results[0].dob.date.slice(5,7));
 }
 
 //This function exectues all 4 stages of each XMLHTTP employee data request
