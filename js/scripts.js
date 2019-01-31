@@ -29,6 +29,8 @@ function createEmployeeModalCard(employee, employeeModalCards, i){
 	let userModalHTML = document.createElement('div');
 	userModalHTML.className = 'modal-container';
 	let modalHTML = '<div class="modal">';
+	modalHTML += '<button type="button" id="modal-prev" class="modal-prev btn"><strong><</strong></button>';
+	modalHTML += '<button type="button" id="modal-next" class="modal-next btn"><strong>></strong></button>';
 	modalHTML += '<button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>';
 	modalHTML += '<div class="modal-info-container">';
 	modalHTML += '<img class="modal-img" src="' + employee.results[0].picture.large + '" alt="profile picture">';
@@ -44,8 +46,6 @@ function createEmployeeModalCard(employee, employeeModalCards, i){
 	userModalHTML.innerHTML = modalHTML;
 	//The employee modal card is added to the employee modal array
 	employeeModalCards[i] = userModalHTML;
-
-	console.log(employee.results[0].dob.date.slice(5,7));
 }
 
 //This function exectues all 4 stages of each XMLHTTP employee data request
