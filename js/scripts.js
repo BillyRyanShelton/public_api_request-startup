@@ -7,6 +7,55 @@ let employeeModalCards = [];
 //An array to hold the employee gallery cards is created
 let employeeGalleryCards = [];
 
+//This function shows the modal card based on its index in the employeeGalleryCards array
+function showModelCard(i){
+	let currentEmployeeModal = employeeModalCards[i];
+	document.getElementsByTagName('BODY')[0].appendChild(currentEmployeeModal);
+}
+
+//This function hides the modal card based on its index in the employeeGalleryCards array
+function hideModelCard(i){
+	let currentEmployeeModal = employeeModalCards[i];
+	if(currentEmployeeModal.parentNode != null) {
+		currentEmployeeModal.parentNode.removeChild(currentEmployeeModal);
+	}
+}
+
+function modalCardUI(i) {
+		showModelCard(i);
+
+		//When the modal X button is clicked the employee modal is hidden from display
+		document.getElementById('modal-close-btn').addEventListener('click', ()=>{
+			hideModelCard(i);
+		});
+
+		//When the right arrow is clicked in the modal card
+		document.getElementById('modal-next').addEventListener('click', ()=>{
+			//The current employee modal is hidden
+			hideModelCard(i);
+			//if the next employee index is in range it is displayed
+			if(i === 11){
+				return;
+			} //if the next employee index is out of range it is not displayed
+			else{
+				modalCardUI(i+1);
+			}
+		});
+
+		//When the left arrow is clicked in the modal card
+		document.getElementById('modal-prev').addEventListener('click', ()=>{
+			//The current employee modal is hidden
+			hideModelCard(i);
+			//if the next employee index is in range it is displayed
+			if(i === 0){
+				return;
+			} //if the next employee index is out of range it is not displayed
+			else{
+				modalCardUI(i-1);
+			}
+		});
+}
+
 //This function creates an HTML element with the employee gallery card data and appends it to the DOM
 function showEmployeeGalleryCard(employee, employeeGalleryCards, i){
 	let galleryHTML = '<div class="card-img-container">';
@@ -67,17 +116,10 @@ function makeXMLHTTPUserRequest(i){
 			
 			//The employee modal card is opened when it is clicked
 			employeeGalleryCards[i].addEventListener('click',()=>{
-				let currentEmployeeModal = employeeModalCards[i];
-				document.getElementsByTagName('BODY')[0].appendChild(currentEmployeeModal);
-
-				//When the modal X button is clicked the employee modal is hidden from display
-				document.getElementById('modal-close-btn').addEventListener('click', ()=>{
-					currentEmployeeModal.parentNode.removeChild(currentEmployeeModal);
-				});
+				modalCardUI(i);
 			});
-
 		} 
-	};
+	}
 
 	//A request is opened for the current employee info
 	galleryXHR.open('GET', 'https://randomuser.me/api/?format=json', true);
@@ -95,4 +137,6 @@ let numEmployees = 12;
 for(let i = 0; i < numEmployees; i++) {	
 	makeXMLHTTPUserRequest(i);
 }
+
+
 
