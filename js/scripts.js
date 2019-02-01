@@ -7,6 +7,7 @@ let employeeModalCards = [];
 //An array to hold the employee gallery cards is created
 let employeeGalleryCards = [];
 
+<<<<<<< HEAD
 //An array to hold the employee first names is created
 let employeeFirstNames = [];
 
@@ -69,6 +70,8 @@ function modalCardUI(i) {
 		});
 }
 
+=======
+>>>>>>> parent of d77f225... The left and right arrows now work in the modal cards
 //This function creates an HTML element with the employee gallery card data and appends it to the DOM
 function showEmployeeGalleryCard(employee, employeeGalleryCards, i){
 	let galleryHTML = '<div class="card-img-container">';
@@ -144,10 +147,17 @@ function makeXMLHTTPUserRequest(i){
 			
 			//The employee modal card is opened when it is clicked
 			employeeGalleryCards[i].addEventListener('click',()=>{
-				modalCardUI(i);
+				let currentEmployeeModal = employeeModalCards[i];
+				document.getElementsByTagName('BODY')[0].appendChild(currentEmployeeModal);
+
+				//When the modal X button is clicked the employee modal is hidden from display
+				document.getElementById('modal-close-btn').addEventListener('click', ()=>{
+					currentEmployeeModal.parentNode.removeChild(currentEmployeeModal);
+				});
 			});
+
 		} 
-	}
+	};
 
 	//A request is opened for the current employee info
 	galleryXHR.open('GET', 'https://randomuser.me/api/?format=json', true);
@@ -166,6 +176,7 @@ for(let i = 0; i < numEmployees; i++) {
 	makeXMLHTTPUserRequest(i);
 }
 
+<<<<<<< HEAD
 searchEmployee();
 //Search function
 function searchEmployee(){
@@ -191,3 +202,5 @@ function partOfString(length, string) {
 
 
 console.log(document.getElementById('search-input').value.length);
+=======
+>>>>>>> parent of d77f225... The left and right arrows now work in the modal cards
