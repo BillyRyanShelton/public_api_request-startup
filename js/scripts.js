@@ -7,6 +7,10 @@ let employeeModalCards = [];
 //An array to hold the employee gallery cards is created
 let employeeGalleryCards = [];
 
+//An array to hold country postal abbreviations where english is the primary language
+let speakEnglish = ['AU', 'NZ', 'UK', 'US', 'UM', 'AG', 'BS', 'BB', 'BZ', 'CA', 'CK',
+					'DM', 'GD', 'GH', 'GY', 'JM', 'LR', 'KN', 'LC', 'VC', 'TT'];
+
 //This function shows the modal card based on its index in the employeeGalleryCards array
 function showModelCard(i){
 	let currentEmployeeModal = employeeModalCards[i];
@@ -21,6 +25,7 @@ function hideModelCard(i){
 	}
 }
 
+//This functon showsthe modal card  and handles the left, right and x buttons when clicked
 function modalCardUI(i) {
 		showModelCard(i);
 
@@ -107,7 +112,15 @@ function makeXMLHTTPUserRequest(i){
 		if(galleryXHR.readyState === XMLHttpRequest.DONE) {
 			//The JSON returned from the server is parsed
 			let employee = JSON.parse(this.responseText);
+			//speakEnglish.forEach()
 
+			if(speakEnglish.some((nationality)=>{ return employee.results[0].nat === nationality;}))  
+			{}
+			else{
+				makeXMLHTTPUserRequest(i);
+				return;
+			}
+			//console.log(employee.results[0].nat);
 			//The employee gallery card is created, added to the employee gallery array and appended to the DOM
 			showEmployeeGalleryCard(employee, employeeGalleryCards, i);
 			
