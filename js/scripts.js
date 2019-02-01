@@ -7,9 +7,17 @@ let employeeModalCards = [];
 //An array to hold the employee gallery cards is created
 let employeeGalleryCards = [];
 
+//An array to hold the employee first names is created
+let employeeFirstNames = [];
+
+//An array to hold the employee gallery cards is created
+let employeeLastNames = [];
+
 //An array to hold country postal abbreviations where english is the primary language
 let speakEnglish = ['AU', 'NZ', 'UK', 'US', 'UM', 'AG', 'BS', 'BB', 'BZ', 'CA', 'CK',
 					'DM', 'GD', 'GH', 'GY', 'JM', 'LR', 'KN', 'LC', 'VC', 'TT'];
+//An array to hold the employees' JSON data
+let employeeJSON = [];
 
 //This function shows the modal card based on its index in the employeeGalleryCards array
 function showModelCard(i){
@@ -112,11 +120,13 @@ function makeXMLHTTPUserRequest(i){
 		if(galleryXHR.readyState === XMLHttpRequest.DONE) {
 			//The JSON returned from the server is parsed
 			let employee = JSON.parse(this.responseText);
-			//speakEnglish.forEach()
-
+			
+			//only speaking english api employee requests are accepted
 			if(speakEnglish.some((nationality)=>{ return employee.results[0].nat === nationality;}))  
-			{}
-			else{
+			{
+				//if the user speaks english continue
+			}
+			else{//if the user does not speak english make a new XMLHTTP user request
 				makeXMLHTTPUserRequest(i);
 				return;
 			}
@@ -126,6 +136,11 @@ function makeXMLHTTPUserRequest(i){
 			
 			//The employee modal card is created and added to the employee modal array
 			createEmployeeModalCard(employee, employeeModalCards, i);
+
+			//The employee first, last names and JSON data are saved to their respective arrays
+			employeeFirstNames[i] = employee.results[0].name.first;
+			employeeLastNames[i] = employee.results[0].name.last;
+			employeeJSON[i] = employee.results[0];
 			
 			//The employee modal card is opened when it is clicked
 			employeeGalleryCards[i].addEventListener('click',()=>{
@@ -151,5 +166,28 @@ for(let i = 0; i < numEmployees; i++) {
 	makeXMLHTTPUserRequest(i);
 }
 
+searchEmployee();
+//Search function
+function searchEmployee(){
+	let input = document.getElementById('search-input');
+	input.addEventListener('keyup', ()=>{
+		for(i = 0; i < numEmployees; i++) {
+			//Compares the first name, last name and combination of first and last name seprated by a space
+			if(document.getElementById('search-input').value === partOfString(input.value.length,employeeFirstNames[i]) || document.getElementById('search-input').value === partOfString(input.value.length,employeeLastNames[i]) || document.getElementById('search-input').value === partOfString(input.value.length,employeeFirstNames[i] + ' ' + employeeLastNames[i])) {
+				document.getElementById('gallery').innerHTML = '';
+				showEmployeeGalleryCard(employee, employeeGalleryCards, i);
+			}
+	}	
+	});
+}
+
+//given a string, only as many characters as the length are returned(from left to right of string)
+function partOfString(length, string) {
+  let stringPart = '';
+  for(let i = 0; i < length; i++) {
+    stringPart += string[i];
+  } return stringPart;
+}
 
 
+console.log(document.getElementById('search-input').value.length);
