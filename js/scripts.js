@@ -75,6 +75,7 @@ function showEmployeeGalleryCard(employee, employeeGalleryCards, i){
 	userHTML.innerHTML = galleryHTML;
 	userHTML.className = 'card';
 	employeeGalleryCards[i] = userHTML;
+	console.log(employeeGalleryCards[i]);
 	document.getElementById('gallery').appendChild(userHTML);
 }
 
@@ -100,6 +101,7 @@ function createEmployeeModalCard(employee, employeeModalCards, i){
 	userModalHTML.innerHTML = modalHTML;
 	//The employee modal card is added to the employee modal array
 	employeeModalCards[i] = userModalHTML;
+	console.log(employeeModalCards[i]);
 }
 
 //This function exectues all 4 stages of each XMLHTTP employee data request
@@ -115,22 +117,22 @@ function makeXMLHTTPUserRequest(i){
 			//speakEnglish.forEach()
 
 			if(speakEnglish.some((nationality)=>{ return employee.results[0].nat === nationality;}))  
-			{}
+			{
+				//The employee modal card is created and added to the employee modal array
+				createEmployeeModalCard(employee, employeeModalCards, i);
+
+				//The employee gallery card is created, added to the employee gallery array and appended to the DOM
+				showEmployeeGalleryCard(employee, employeeGalleryCards, i);
+			
+				//The employee modal card is opened when it is clicked
+				employeeGalleryCards[i].addEventListener('click',()=>{
+					modalCardUI(i);
+				});
+			}
 			else{
 				makeXMLHTTPUserRequest(i);
 				return;
 			}
-			//console.log(employee.results[0].nat);
-			//The employee gallery card is created, added to the employee gallery array and appended to the DOM
-			showEmployeeGalleryCard(employee, employeeGalleryCards, i);
-			
-			//The employee modal card is created and added to the employee modal array
-			createEmployeeModalCard(employee, employeeModalCards, i);
-			
-			//The employee modal card is opened when it is clicked
-			employeeGalleryCards[i].addEventListener('click',()=>{
-				modalCardUI(i);
-			});
 		} 
 	}
 
