@@ -1,20 +1,11 @@
 // The following file is a Javascript file which manages pulls employee
 // data from an API and appends it to the corresponding index.html file
 
-//The number of employee data is set
-let numEmployees = 12;
-
 //An array to hold the employee modal cards is created
 let employeeModalCards = [];
 
 //An array to hold the employee gallery cards is created
 let employeeGalleryCards = [];
-
-//Employee Index
-let employeeIndex = [];
-for(i=0; i < numEmployees; i++) {
-	employeeIndex.push('');
-}
 
 //An array to hold country postal abbreviations where english is the primary language
 let speakEnglish = ['AU', 'NZ', 'UK', 'US', 'UM', 'AG', 'BS', 'BB', 'BZ', 'CA', 'CK',
@@ -22,13 +13,13 @@ let speakEnglish = ['AU', 'NZ', 'UK', 'US', 'UM', 'AG', 'BS', 'BB', 'BZ', 'CA', 
 
 //This function shows the modal card based on its index in the employeeGalleryCards array
 function showModelCard(i){
-	let currentEmployeeModal = employeeModalCards[employeeIndex[i]];
+	let currentEmployeeModal = employeeModalCards[i];
 	document.getElementsByTagName('BODY')[0].appendChild(currentEmployeeModal);
 }
 
 //This function hides the modal card based on its index in the employeeGalleryCards array
 function hideModelCard(i){
-	let currentEmployeeModal = employeeModalCards[employeeIndex[i]];
+	let currentEmployeeModal = employeeModalCards[i];
 	if(currentEmployeeModal.parentNode != null) {
 		currentEmployeeModal.parentNode.removeChild(currentEmployeeModal);
 	}
@@ -84,7 +75,6 @@ function showEmployeeGalleryCard(employee, employeeGalleryCards, i){
 	userHTML.innerHTML = galleryHTML;
 	userHTML.className = 'card';
 	employeeGalleryCards[i] = userHTML;
-	employeeIndex.push(i);
 	document.getElementById('gallery').appendChild(userHTML);
 }
 
@@ -109,7 +99,7 @@ function createEmployeeModalCard(employee, employeeModalCards, i){
 	modalHTML += '</div>';
 	userModalHTML.innerHTML = modalHTML;
 	//The employee modal card is added to the employee modal array
-	employeeModalCards.push(userModalHTML);
+	employeeModalCards[i] = userModalHTML;
 }
 
 //This function exectues all 4 stages of each XMLHTTP employee data request
@@ -125,23 +115,22 @@ function makeXMLHTTPUserRequest(i){
 			//speakEnglish.forEach()
 
 			if(speakEnglish.some((nationality)=>{ return employee.results[0].nat === nationality;}))  
-			{
-				//The employee gallery card is created, added to the employee gallery array and appended to the DOM
-				showEmployeeGalleryCard(employee, employeeGalleryCards, i);
-
-				//The employee modal card is created and added to the employee modal array
-				createEmployeeModalCard(employee, employeeModalCards, i);
-			
-				if(employeeGalleryCards[i] != null){
-					//The employee modal card is opened when it is clicked
-					employeeGalleryCards[i].addEventListener('click',()=>{
-					modalCardUI(i);
-					});
-				}
-			}
+			{}
 			else{
 				makeXMLHTTPUserRequest(i);
+				return;
 			}
+			//console.log(employee.results[0].nat);
+			//The employee gallery card is created, added to the employee gallery array and appended to the DOM
+			showEmployeeGalleryCard(employee, employeeGalleryCards, i);
+			
+			//The employee modal card is created and added to the employee modal array
+			createEmployeeModalCard(employee, employeeModalCards, i);
+			
+			//The employee modal card is opened when it is clicked
+			employeeGalleryCards[i].addEventListener('click',()=>{
+				modalCardUI(i);
+			});
 		} 
 	}
 
@@ -152,9 +141,15 @@ function makeXMLHTTPUserRequest(i){
 	galleryXHR.send();
 }
 
+//The number of employee data is set
+let numEmployees = 12;
+
 //The following for loop determines how many employees to display on the page 
 //Note:  The reason there is an makeXMLHPUserRequest function is
 //so the employee data can be retrieved asyncronously from the API
 for(let i = 0; i < numEmployees; i++) {	
 	makeXMLHTTPUserRequest(i);
 }
+
+
+
