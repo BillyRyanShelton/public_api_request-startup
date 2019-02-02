@@ -1,25 +1,11 @@
 // The following file is a Javascript file which manages pulls employee
 // data from an API and appends it to the corresponding index.html file
 
-//The number of employee data is set
-let numEmployees = 12;
-
 //An array to hold the employee modal cards is created
 let employeeModalCards = [];
-for(let i = 0; i < numEmployees; i++) {
-	employeeModalCards[i] = '';
-}
 
 //An array to hold the employee gallery cards is created
 let employeeGalleryCards = [];
-for(let i = 0; i < numEmployees; i++) {
-	employeeGalleryCards[i] = '';
-}
-
-let employeeIndex = [];
-for(let i = 0; i < numEmployees; i++) {
-	employeeIndex[i] = '';
-}
 
 //An array to hold country postal abbreviations where english is the primary language
 let speakEnglish = ['AU', 'NZ', 'UK', 'US', 'UM', 'AG', 'BS', 'BB', 'BZ', 'CA', 'CK',
@@ -39,7 +25,7 @@ function hideModelCard(i){
 	}
 }
 
-//This functon shows the modal card  and handles the left, right and x buttons when clicked
+//This functon showsthe modal card  and handles the left, right and x buttons when clicked
 function modalCardUI(i) {
 		showModelCard(i);
 
@@ -89,8 +75,6 @@ function showEmployeeGalleryCard(employee, employeeGalleryCards, i){
 	userHTML.innerHTML = galleryHTML;
 	userHTML.className = 'card';
 	employeeGalleryCards[i] = userHTML;
-	employeeGalleryCards[i] = i;
-
 	document.getElementById('gallery').appendChild(userHTML);
 }
 
@@ -156,6 +140,9 @@ function makeXMLHTTPUserRequest(i){
 	//The request is sent to the server
 	galleryXHR.send();
 }
+
+//The number of employee data is set
+let numEmployees = 12;
 
 //The following for loop determines how many employees to display on the page 
 //Note:  The reason there is an makeXMLHPUserRequest function is
